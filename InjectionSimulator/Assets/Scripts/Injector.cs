@@ -5,13 +5,13 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Injector : MonoBehaviour
 {
-    [SerializeField] private GameObject potionInInjector,plunger,potionPrefab;
+    [SerializeField] private GameObject potionInInjector,plunger,potionPrefab,dropVFX;
     [SerializeField] private float fullMedicine, initialSize;
     private bool interactWithPotion,interactWithPatient,fullPotion,completed, attachTotVial;
     private GameManager gameManager;
     private AudioSource audioSource;
     [SerializeField] AudioClip gettingMedicineClip, injectingClip,errorClip;
-
+    [SerializeField] Transform dropVFXattach;
     private GameObject potionCollider; 
 
     private void Start()
@@ -90,8 +90,11 @@ public class Injector : MonoBehaviour
             }
             else
             {
-                audioSource.PlayOneShot(errorClip);
-                gameManager.setTipsWindowText("Tips: you need to inject the patient");
+                if (!completed) { 
+                    audioSource.PlayOneShot(errorClip);
+                    Instantiate(dropVFX, dropVFXattach.transform.position, Quaternion.Euler(new Vector3(90,0,0)));
+                    gameManager.setTipsWindowText("Tips: you need to inject the patient");
+                }
             }
         }
     }

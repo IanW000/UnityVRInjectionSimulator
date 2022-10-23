@@ -502,6 +502,7 @@ Transform:
   - {fileID: 3856776905605690345}
   - {fileID: 7827974595155257750}
   - {fileID: 2330516905272405323}
+  - {fileID: 4478899373004408551}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -726,11 +727,13 @@ MonoBehaviour:
   potionInInjector: {fileID: 6607729700847525217}
   plunger: {fileID: 7969656135252713765}
   potionPrefab: {fileID: 1482041235545437854}
+  dropVFX: {fileID: 7809015228487537479, guid: 1d2dcb07e5bc85c469b1111d114ee6a7, type: 3}
   fullMedicine: 0.038
   initialSize: 0
   gettingMedicineClip: {fileID: 8300000, guid: 19f6130b9ba4a6944b44babbcffe8eb3, type: 3}
   injectingClip: {fileID: 8300000, guid: 7e93129f2ceb14e4989cc3b3d63da288, type: 3}
   errorClip: {fileID: 8300000, guid: 199d785729ed7b147b48fc7e0020700f, type: 3}
+  dropVFXattach: {fileID: 4478899373004408551}
 --- !u!82 &4469200472835385567
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1026,6 +1029,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8631036678566828285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4478899373004408551}
+  m_Layer: 0
+  m_Name: DropVFXAttach
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4478899373004408551
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8631036678566828285}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.207, y: 0.018, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6607729699855559213}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9213678551667989882
 GameObject:
   m_ObjectHideFlags: 0
