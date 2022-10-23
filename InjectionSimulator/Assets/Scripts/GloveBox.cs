@@ -13,7 +13,7 @@ public class GloveBox : MonoBehaviour
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         audioSource = GetComponent<AudioSource>();
     }
-    public void generateGloves(ActivateEventArgs arg)
+    public void generateGloves(SelectEnterEventArgs arg)
     {
         Instantiate(glove, generateGlovePos.transform.position, Quaternion.identity);
         Instantiate(cloudParticles, transform.position, Quaternion.identity);

@@ -9529,9 +9529,10 @@ MonoBehaviour:
   vialCap: {fileID: 6265420966868760205, guid: fc35d16bedeab6441ac4db0a398bac91, type: 3}
   injector: {fileID: 6607729699855559210, guid: e7a12baafeec3c3498a0e1bc3ea6e9c4,
     type: 3}
-  generate: {fileID: 0}
-  success: {fileID: 0}
+  generate: {fileID: 8300000, guid: 416911e8fade067418e63949e574b771, type: 3}
+  success: {fileID: 8300000, guid: 70a17244eb26aad42a132e3b07cf1cc3, type: 3}
   currentTask: 0
+  interfaceManager: {fileID: 1541350977}
 --- !u!4 &2038009282
 Transform:
   m_ObjectHideFlags: 0
@@ -12363,12 +12364,6 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Activated:
-    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7908367182558675064}
         m_TargetAssemblyTypeName: GloveBox, Assembly-CSharp
@@ -12382,6 +12377,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []

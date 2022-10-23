@@ -16,18 +16,13 @@ public class GameManager : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField] AudioClip generate, success;
     public int currentTask;
+    [SerializeField] InterfaceManager interfaceManager;
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         currentTask = 0;
         setTaskWindowText("Finished Tasks(" + currentTask + "/3)\r\nStep 1: Take out a glove from the glove box and drop them on the other hand to put them on");
         setTipsWindowText("Tips: Use Grip and Trigger button to interact with the items");
-    }
-
-    public void finishedThirdTask()
-    {
-        //put jsno value here
-        taskWindow.text = "Finished Tasks("+currentTask+"/3)\r\nCongratulations! You finished the injector simulator for " + " times. The game will be reset soonly";
     }
     public void wearGloves()
     {
@@ -53,7 +48,13 @@ public class GameManager : MonoBehaviour
         currentTask++;
         setTaskWindowText("Finished Tasks(" + currentTask + "/3)\r\nStep 3: Insert the assembled syringe into the patient's arm/deltoid");
     }
-
+    public void completed()
+    {
+        interfaceManager.gameEnd(5);
+        audioSource.PlayOneShot(success);
+        currentTask++;
+        setTaskWindowText("Finished Tasks(" + currentTask + "/3)\r\nCongratulations! You finished the injector simulator for " + " times. The game will be reset soonly");
+    }
     public void setTipsWindowText(string tips)
     {
         tipsWindow.text = tips;
@@ -66,6 +67,5 @@ public class GameManager : MonoBehaviour
     {
         Instantiate(gameObject, transform.position, Quaternion.identity);
         Instantiate(cloudParticles, transform.position, Quaternion.identity);
-        
     }
 }

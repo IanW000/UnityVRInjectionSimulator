@@ -10,8 +10,9 @@ public class Injector : MonoBehaviour
     private bool interactWithPotion,interactWithPatient,fullPotion;
     private GameManager gameManager;
     private AudioSource audioSource;
-    [SerializeField] AudioClip gettingMedicineClip, injectingClip;
-    // Start is called before the first frame update
+    [SerializeField] AudioClip gettingMedicineClip, injectingClip,errorClip;
+
+    private bool completed;
 
     private void Start()
     {
@@ -36,7 +37,8 @@ public class Injector : MonoBehaviour
                 }
                 else
                 {
-                    gameManager.setTipsWindowText("Tips: You need to get the medicine for the injector next");
+                    audioSource.PlayOneShot(errorClip);
+                    gameManager.setTipsWindowText("Tips: You need to get the medicine from the vial next");
                 }
             }
             else
@@ -60,11 +62,16 @@ public class Injector : MonoBehaviour
                 else
                 {
                     gameManager.setTipsWindowText("Tips: Finished Injecting");
+                    if (!completed)
+                    {
+                        gameManager.completed();
+                        completed = true;
+                    }
                 }
-                    
             }
             else
             {
+                audioSource.PlayOneShot(errorClip);
                 gameManager.setTipsWindowText("Tips: You need to inject the patient next");
             }
         }
