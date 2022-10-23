@@ -1,18 +1,20 @@
+using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using System.IO;
 
 public class Injector : MonoBehaviour
 {
-    [SerializeField] private GameObject potionInInjector,plunger,potionPrefab,dropVFX;
+    [SerializeField] private GameObject potionInInjector, plunger, potionPrefab, dropVFX;
     [SerializeField] private float fullMedicine, initialSize;
-    private bool interactWithPotion,interactWithPatient,fullPotion,completed, attachTotVial;
+    private bool interactWithPotion, interactWithPatient, fullPotion, completed, attachTotVial;
     private GameManager gameManager;
     private AudioSource audioSource;
-    [SerializeField] AudioClip gettingMedicineClip, injectingClip,errorClip;
+    [SerializeField] AudioClip gettingMedicineClip, injectingClip, errorClip;
     [SerializeField] Transform dropVFXattach;
-    private GameObject potionCollider; 
+    private GameObject potionCollider;
 
     private void Start()
     {
@@ -27,6 +29,7 @@ public class Injector : MonoBehaviour
     {
         if (gameManager.currentTask <= 0)
         {
+            gameManager.updateCurrentAttemp();
             gameManager.setTipsWindowText("Tips: you shouldn't interact with this item right now!");
             audioSource.PlayOneShot(errorClip);
             return;
@@ -52,6 +55,7 @@ public class Injector : MonoBehaviour
                 else
                 {
                     audioSource.PlayOneShot(errorClip);
+                    gameManager.updateCurrentAttemp();
                     gameManager.setTipsWindowText("Tips: you need to get the medicine from the vial");
                 }
             }
@@ -90,9 +94,10 @@ public class Injector : MonoBehaviour
             }
             else
             {
-                if (!completed) { 
+                if (!completed) {
                     audioSource.PlayOneShot(errorClip);
-                    Instantiate(dropVFX, dropVFXattach.transform.position, Quaternion.Euler(new Vector3(90,0,0)));
+                    gameManager.updateCurrentAttemp();
+                    Instantiate(dropVFX, dropVFXattach.transform.position, Quaternion.Euler(new Vector3(90, 0, 0)));
                     gameManager.setTipsWindowText("Tips: you need to inject the patient");
                 }
             }

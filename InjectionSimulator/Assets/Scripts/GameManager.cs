@@ -4,26 +4,28 @@ using UnityEngine;
 using TMPro;
 using Palmmedia.ReportGenerator.Core;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject[] Hands;
     [SerializeField] Material gloveMat;
-    [SerializeField] TextMeshProUGUI taskWindow;
-    [SerializeField] TextMeshProUGUI tipsWindow;
+    [SerializeField] TextMeshProUGUI taskWindow, tipsWindow, currentAttemps;
 
     [SerializeField] Transform[] generatePos;
     [SerializeField] GameObject cloudParticles, vialBase, vialCap, injector, gloveBox;
     private AudioSource audioSource;
     [SerializeField] AudioClip generate, success;
-    public int currentTask;
+    public int currentTask, attempNum;
     [SerializeField] InterfaceManager interfaceManager;
 
     private GameObject[]generateObjects;
     private void Start()
     {
+        attempNum = 0;
         audioSource = GetComponent<AudioSource>();
         currentTask = 0;
+        currentAttemps.text = attempNum.ToString();
         setTaskWindowText("Finished Tasks(" + currentTask + "/4)\r\nStep 1: Take out a glove from the glove box and drop them on the other hand to put them on");
         
 
@@ -63,6 +65,12 @@ public class GameManager : MonoBehaviour
     }
     public void completed()
     {
+        PlayerData playerData = new PlayerData();
+        playerData.numberOfAttemps.Push(5);
+
+        string json = JsonUtility.ToJson(playerData);
+        System.IO.File.WriteAllText(Application.dataPath + "/saveJson.text", json);
+
         interfaceManager.gameEnd(5);
         audioSource.PlayOneShot(success);
         currentTask++;
@@ -76,6 +84,12 @@ public class GameManager : MonoBehaviour
     {
         taskWindow.text = tips;
     }
+    public void updateCurrentAttemp()
+    {
+        attempNum++;
+        currentAttemps.text = attempNum.ToString();
+    }
+
     public void instantiateObjects(GameObject gameObject, Transform transform)
     {
         Instantiate(gameObject, transform.position, Quaternion.identity);
@@ -94,4 +108,9 @@ public class GameManager : MonoBehaviour
         }
         setTipsWindowText("Tips: you should use Grip and Trigger button to interact with the items");
     }
+    private class PlayerData
+    {
+        public Stack<int> numberOfAttemps;
+    }
+
 }

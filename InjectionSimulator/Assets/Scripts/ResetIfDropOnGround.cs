@@ -9,12 +9,14 @@ public class ResetIfDropOnGround : MonoBehaviour
     private Vector3 initialPos;
     private Quaternion initialRot;
     private AudioSource fallSFX;
+    private GameManager gameManager;
 
     void Start()
     {
         initialPos = transform.position;
         initialRot = transform.rotation;
         fallSFX = GameObject.FindGameObjectWithTag("FallSFX").GetComponent<AudioSource>();
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -22,6 +24,7 @@ public class ResetIfDropOnGround : MonoBehaviour
         if(collision.gameObject.tag == "Ground")
         {
             fallSFX.Play();
+            gameManager.updateCurrentAttemp();
 
             GameObject generatedObject = Instantiate(resetObject, initialPos, initialRot);
 
