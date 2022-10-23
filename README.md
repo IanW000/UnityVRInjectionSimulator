@@ -1,7 +1,10 @@
 # InjectionSimulator
+A VR Educational Environment made by Unity. Oct 23rd, 2022, Ian Wang.
 
 ## Demo Video: https://www.youtube.com/watch?v=c95t8LrHFD8
 Total work time: 12+ hrs
+
+Unity Version: 2021.3.2f1s
 
 ## Assets used:
 
