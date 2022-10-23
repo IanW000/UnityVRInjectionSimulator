@@ -5,12 +5,14 @@ using TMPro;
 using Palmmedia.ReportGenerator.Core;
 using UnityEngine.SceneManagement;
 using System.IO;
+using Unity.VisualScripting;
+using UnityEditor.PackageManager.Requests;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject[] Hands;
     [SerializeField] Material gloveMat;
-    [SerializeField] TextMeshProUGUI taskWindow, tipsWindow, currentAttemps;
+    [SerializeField] TextMeshProUGUI taskWindow, tipsWindow, lastGamesAttemps, currentAttemps;
 
     [SerializeField] Transform[] generatePos;
     [SerializeField] GameObject cloudParticles, vialBase, vialCap, injector, gloveBox;
@@ -27,9 +29,15 @@ public class GameManager : MonoBehaviour
         currentTask = 0;
         currentAttemps.text = attempNum.ToString();
         setTaskWindowText("Finished Tasks(" + currentTask + "/4)\r\nStep 1: Take out a glove from the glove box and drop them on the other hand to put them on");
-        
 
-        generateObjects= new GameObject[] {vialBase,vialCap,injector,gloveBox};
+        string json = System.IO.File.ReadAllText(Application.dataPath + "/saveJson.text");
+        PlayerData loadedPlayerData = JsonUtility.FromJson<PlayerData>(json);
+        foreach(int atm in loadedPlayerData.numberOfAttemps)
+        {
+            lastGamesAttemps.text += atm.ToString() + "  ";
+        }
+
+        generateObjects = new GameObject[] {vialBase,vialCap,injector,gloveBox};
         for(int i = 0; i < generateObjects.Length; i++)
         {
             GameObject obj = generateObjects[i];
@@ -65,10 +73,21 @@ public class GameManager : MonoBehaviour
     }
     public void completed()
     {
-        PlayerData playerData = new PlayerData();
-        playerData.numberOfAttemps.Push(5);
 
-        string json = JsonUtility.ToJson(playerData);
+/*        string loadedJson = System.IO.File.ReadAllText(Application.dataPath + "/saveJson.text");
+        PlayerData loadedPlayerData = JsonUtility.FromJson<PlayerData>(loadedJson);
+
+        PlayerData playerData = new PlayerData();
+        playerData.numberOfAttemps = loadedPlayerData.numberOfAttemps;
+        playerData.numberOfAttemps.Add(attempNum);
+        playerData.numberOfAttemps.RemoveAt(0);*/
+
+         string loadedJson = System.IO.File.ReadAllText(Application.dataPath + "/saveJson.text");
+        PlayerData loadedPlayerData = JsonUtility.FromJson<PlayerData>(loadedJson);
+        loadedPlayerData.numberOfAttemps.Add(attempNum);
+        loadedPlayerData.numberOfAttemps.RemoveAt(0);
+
+        string json = JsonUtility.ToJson(loadedPlayerData);
         System.IO.File.WriteAllText(Application.dataPath + "/saveJson.text", json);
 
         interfaceManager.gameEnd(5);
@@ -110,7 +129,7 @@ public class GameManager : MonoBehaviour
     }
     private class PlayerData
     {
-        public Stack<int> numberOfAttemps;
+        public List<int> numberOfAttemps;
     }
 
 }

@@ -2880,7 +2880,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10, 10, 10
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5704,7 +5704,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8852,6 +8852,7 @@ MonoBehaviour:
   gloveMat: {fileID: 2100000, guid: d267156556c893e46a51568a73e81572, type: 2}
   taskWindow: {fileID: 1207317951}
   tipsWindow: {fileID: 1266116020}
+  lastGamesAttemps: {fileID: 905748176}
   currentAttemps: {fileID: 1505289069}
   generatePos:
   - {fileID: 416579975}
