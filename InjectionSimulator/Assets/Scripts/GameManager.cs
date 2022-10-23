@@ -13,15 +13,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject[] Hands;
     [SerializeField] Material gloveMat;
     [SerializeField] TextMeshProUGUI taskWindow, tipsWindow, lastGamesAttemps, currentAttemps;
-
+    [SerializeField] InterfaceManager interfaceManager;
     [SerializeField] Transform[] generatePos;
     [SerializeField] GameObject cloudParticles, vialBase, vialCap, injector, gloveBox;
-    private AudioSource audioSource;
     [SerializeField] AudioClip generate, success;
-    public int currentTask, attempNum;
-    [SerializeField] InterfaceManager interfaceManager;
 
+    public int currentTask, attempNum;
+    private AudioSource audioSource;
     private GameObject[]generateObjects;
+
     private void Start()
     {
         attempNum = 0;
@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 
         string json = System.IO.File.ReadAllText(Application.dataPath + "/saveJson.text");
         PlayerData loadedPlayerData = JsonUtility.FromJson<PlayerData>(json);
+
         foreach(int atm in loadedPlayerData.numberOfAttemps)
         {
             lastGamesAttemps.text += atm.ToString() + "  ";
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
         }
         StartCoroutine(initialize());
     }
+
     public void wearGloves()
     {
         foreach(GameObject hand in Hands)
@@ -59,30 +61,24 @@ public class GameManager : MonoBehaviour
         setTaskWindowText("Finished Tasks("+currentTask+"/4)\r\nStep 2: Pick up the syringe and attach it to the vial to get the medicine");
         setTipsWindowText("Tips: fullfil the syringe with medicine next");
     }
+
     public void takeApart()
     {
         audioSource.PlayOneShot(success);
         currentTask++;
         setTaskWindowText("Finished Tasks(" + currentTask + "/4)\r\nStep 3: Draw medicine from the vial and then take the syringe and vial apart");
     }
+
     public void filledMedicine()
     {
         audioSource.PlayOneShot(success);
         currentTask++;
         setTaskWindowText("Finished Tasks(" + currentTask + "/4)\r\nStep 4: Insert the assembled syringe into the patient's arm/deltoid");
     }
+
     public void completed()
     {
-
-/*        string loadedJson = System.IO.File.ReadAllText(Application.dataPath + "/saveJson.text");
-        PlayerData loadedPlayerData = JsonUtility.FromJson<PlayerData>(loadedJson);
-
-        PlayerData playerData = new PlayerData();
-        playerData.numberOfAttemps = loadedPlayerData.numberOfAttemps;
-        playerData.numberOfAttemps.Add(attempNum);
-        playerData.numberOfAttemps.RemoveAt(0);*/
-
-         string loadedJson = System.IO.File.ReadAllText(Application.dataPath + "/saveJson.text");
+        string loadedJson = System.IO.File.ReadAllText(Application.dataPath + "/saveJson.text");
         PlayerData loadedPlayerData = JsonUtility.FromJson<PlayerData>(loadedJson);
         loadedPlayerData.numberOfAttemps.Add(attempNum);
         loadedPlayerData.numberOfAttemps.RemoveAt(0);
@@ -93,16 +89,19 @@ public class GameManager : MonoBehaviour
         interfaceManager.gameEnd(5);
         audioSource.PlayOneShot(success);
         currentTask++;
-        setTaskWindowText("Finished Tasks(" + currentTask + "/4)\r\nCongratulations! You finished the injector simulator for " + " times. The game will be reset soonly");
+        setTaskWindowText("Finished Tasks(" + currentTask + "/4)\r\nCongratulations! You finished the injector simulator. The game will be reset soonly");
     }
+
     public void setTipsWindowText(string tips)
     {
         tipsWindow.text = tips;
     }
+
     public void setTaskWindowText(string tips)
     {
         taskWindow.text = tips;
     }
+
     public void updateCurrentAttemp()
     {
         attempNum++;
@@ -114,6 +113,7 @@ public class GameManager : MonoBehaviour
         Instantiate(gameObject, transform.position, Quaternion.identity);
         Instantiate(cloudParticles, transform.position, Quaternion.identity);
     }
+
     private IEnumerator initialize()
     {
         setTipsWindowText("Tips: please wait until all items being generated");
@@ -127,6 +127,7 @@ public class GameManager : MonoBehaviour
         }
         setTipsWindowText("Tips: you should use Grip and Trigger button to interact with the items");
     }
+
     private class PlayerData
     {
         public List<int> numberOfAttemps;

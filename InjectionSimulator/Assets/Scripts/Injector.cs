@@ -12,6 +12,7 @@ public class Injector : MonoBehaviour
     private bool interactWithPotion, interactWithPatient, fullPotion, completed, attachTotVial;
     private GameManager gameManager;
     private AudioSource audioSource;
+
     [SerializeField] AudioClip gettingMedicineClip, injectingClip, errorClip;
     [SerializeField] Transform dropVFXattach;
     private GameObject potionCollider;
@@ -124,6 +125,7 @@ public class Injector : MonoBehaviour
             interactWithPatient = true;
         }
     }
+
     private void OnCollisionExit(Collision collision)
     {
 

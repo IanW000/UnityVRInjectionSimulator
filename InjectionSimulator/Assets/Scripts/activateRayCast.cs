@@ -6,10 +6,10 @@ using UnityEngine.InputSystem;
 public class activateRayCast : MonoBehaviour
 {
     [SerializeField]
-    private GameObject rayCast;
+    GameObject rayCast;
 
     [SerializeField]
-    private InputActionProperty rightTrigger;
+    InputActionProperty rightTrigger;
 
     private void Update()
     {
