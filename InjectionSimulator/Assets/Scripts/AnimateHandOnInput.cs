@@ -23,7 +23,7 @@ public class AnimateHandOnInput : MonoBehaviour
         float triggerValue = pinchAnimationAction.action.ReadValue<float>();
         float gripValue = gripAnimationAction.action.ReadValue<float>();
 
-        handAnimator.SetFloat("Grip", triggerValue);
+        handAnimator.SetFloat("Grip", triggerValue * .2f );
         handAnimator.SetFloat("Trigger", gripValue);
     }
 }
