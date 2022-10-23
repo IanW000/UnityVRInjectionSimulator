@@ -17,14 +17,14 @@ public class InterfaceManager : MonoBehaviour
         StartCoroutine(restartSceneAfterFewSeconds(seconds));
     }
 
-    IEnumerator restartSceneImmediately()
+    private IEnumerator restartSceneImmediately()
     {
         fadeScreen.FadeOut();
         yield return new WaitForSeconds(fadeScreen.fadeDuration);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    IEnumerator restartSceneAfterFewSeconds(int seconds)
+    private IEnumerator restartSceneAfterFewSeconds(int seconds)
     {
         yield return new WaitForSeconds(seconds);
         fadeScreen.FadeOut();

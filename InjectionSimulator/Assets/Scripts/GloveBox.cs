@@ -18,6 +18,6 @@ public class GloveBox : MonoBehaviour
         Instantiate(glove, generateGlovePos.transform.position, Quaternion.identity);
         Instantiate(cloudParticles, transform.position, Quaternion.identity);
         audioSource.Play();
-        gameManager.setTipsWindowText("Hold the glove with both hands");
+        gameManager.setTipsWindowText("Interact the glove with your both hands");
     }
 }
