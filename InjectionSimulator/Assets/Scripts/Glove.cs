@@ -15,15 +15,6 @@ public class Glove : MonoBehaviour
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
-    private void Update()
-    {
-        //Debug.Log(dropOnWhichHand);
-    }
-    public void hasBeenGrabbed(HoverEnterEventArgs arg)
-    {
-        //Debug.Log(grabInteractable.GetOldestInteractorHovering().ToString());
-
-    }
     public void hasBeenSelected(SelectEnterEventArgs arg)
     {
         if (grabInteractable.selectingInteractor.name == "LeftHand")

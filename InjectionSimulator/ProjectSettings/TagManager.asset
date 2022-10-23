@@ -9,6 +9,7 @@ TagManager:
   - Injector
   - Patient
   - GameManager
+  - FallSFX
   layers:
   - Default
   - TransparentFX

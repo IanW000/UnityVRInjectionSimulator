@@ -9,6 +9,8 @@ public class Injector : MonoBehaviour
     [SerializeField] private float fullMedicine, initialSize;
     private bool interactWithPotion,interactWithPatient,fullPotion;
     private GameManager gameManager;
+    private AudioSource audioSource;
+    [SerializeField] AudioClip gettingMedicineClip, injectingClip;
     // Start is called before the first frame update
 
     private void Start()
@@ -18,6 +20,7 @@ public class Injector : MonoBehaviour
         fullPotion = false;
         initialSize = potionInInjector.transform.localScale.y;
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        audioSource = GetComponent<AudioSource>();
     }
     public void activateInjector(ActivateEventArgs arg)
     {
@@ -28,11 +31,12 @@ public class Injector : MonoBehaviour
                 if (interactWithPotion) { 
                     potionInInjector.transform.localScale += new Vector3(0, 0.01f, 0);
                     plunger.transform.localPosition += new Vector3(.02f, 0, 0);
-                    gameManager.setTipsWindowText("Tips: Getting the medicine");
+                    audioSource.PlayOneShot(gettingMedicineClip);
+                    gameManager.setTipsWindowText("Tips: Getting the medicine. Keep Going!");
                 }
                 else
                 {
-                    gameManager.setTipsWindowText("Tips: You need to put the needle in the vial to get the potion");
+                    gameManager.setTipsWindowText("Tips: You need to get the medicine for the injector next");
                 }
             }
             else
@@ -48,9 +52,10 @@ public class Injector : MonoBehaviour
             {
                 if (potionInInjector.transform.localScale.y >= initialSize)
                 {
+                    audioSource.PlayOneShot(injectingClip);
                     potionInInjector.transform.localScale -= new Vector3(0, 0.01f, 0);
                     plunger.transform.localPosition -= new Vector3(.02f, 0, 0);
-                    gameManager.setTipsWindowText("Tips: Injecting the medicine");
+                    gameManager.setTipsWindowText("Tips: Injecting the medicine. Keep Going!");
                 }
                 else
                 {
@@ -60,7 +65,7 @@ public class Injector : MonoBehaviour
             }
             else
             {
-                gameManager.setTipsWindowText("Tips: You need to find a target for the syringe");
+                gameManager.setTipsWindowText("Tips: You need to inject the patient next");
             }
         }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Palmmedia.ReportGenerator.Core;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,9 +13,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Transform vialBasePos,vialCapPos,injectorPos;
     [SerializeField] GameObject cloudParticles, vialBase, vialCap, injector;
+    private AudioSource audioSource;
+    [SerializeField] AudioClip generate, success;
     public int currentTask;
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         currentTask = 0;
         setTaskWindowText("Finished Tasks(" + currentTask + "/3)\r\nStep 1: Take out a glove from the glove box and drop them on the other hand to put them on");
         setTipsWindowText("Tips: Use Grip and Trigger button to interact with the items");
@@ -32,6 +36,9 @@ public class GameManager : MonoBehaviour
             hand.GetComponent<Renderer>().material = gloveMat;
         }
         currentTask++;
+        audioSource.PlayOneShot(success);
+
+        audioSource.PlayOneShot(generate);
 
         instantiateObjects(vialBase, vialBasePos);
         instantiateObjects(vialCap, vialCapPos);
@@ -42,6 +49,7 @@ public class GameManager : MonoBehaviour
     }
     public void filledMedicine()
     {
+        audioSource.PlayOneShot(success);
         currentTask++;
         setTaskWindowText("Finished Tasks(" + currentTask + "/3)\r\nStep 3: Insert the assembled syringe into the patient's arm/deltoid");
     }
@@ -58,5 +66,6 @@ public class GameManager : MonoBehaviour
     {
         Instantiate(gameObject, transform.position, Quaternion.identity);
         Instantiate(cloudParticles, transform.position, Quaternion.identity);
+        
     }
 }
